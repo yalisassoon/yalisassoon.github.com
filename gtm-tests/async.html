@@ -36,12 +36,10 @@
     <script type="text/javascript">
         function playMix() {
             alert("Playing a DJ mix");
-            dataLayer.push({'event': 'playMix'});
             _snaq.push(['trackEvent', 'Mixes', 'Play', 'MRC/fabric-0503-mix', '', '0.0']);
         }
         function addProduct() {
             alert("Adding a product to basket");
-            dataLayer.push({'event': 'addProduct'});
             _snaq.push(['trackEvent', 'Checkout', 'Add', 'ASO01043', 'blue:xxl', '2.0']);      
         }
 
