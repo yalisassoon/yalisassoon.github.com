@@ -31,22 +31,41 @@
     <script type="text/javascript">
         function playMix() {
             alert("Playing a DJ mix");
-            dataLayer.push({'ev_category': 'Mixes', 'ev_action': 'playMix', 'ev_label': 'fabric-mashup-3', 'ev_propery':'MRC/fabric-0503-mix', 'ev_value':'0.0', 'event': 'custom_event'});
+            dataLayer.push({
+              'ev_category': 'Mixes', 
+              'ev_action': 'playMix', 
+              'ev_label': 'fabric-mashup-3', 
+              'ev_propery':'MRC-fabric-0503-mix', 
+              'ev_value':'0.0', 
+              'event': 'custom_event'});
         }
         
         function playMix2() {
           alert("Playing a DJ mix - using custom data defined after 'playmix' event fired")
-          datalayer.push({'event': 'playMix', 'mix_name': 'fabric mashup 3', 'mix_id': 'MRC/fabric-0503-mix'})
+          datalayer.push({
+            'event': 'playMix', 
+            'mix_name': 'fabric mashup 3', 
+            'mix_id': 'MRC-fabric-0503-mix'})
         }
 
         function playMix3() {
           alert("Playing a DJ mix - using custom data defined before 'playmix' event fired")
-          datalayer.push({'mix_name': 'fabric mashup 3', 'mix_id': 'MRC/fabric-0503-mix', 'event': 'playMix'})
+          datalayer.push({
+            'mix_name': 'fabric mashup 3', 
+            'mix_id': 'MRC-fabric-0503-mix', 
+            'event': 'playMix'
+          })
         }
         
         function addProduct() {
             alert("Adding a product to basket");
-            dataLayer.push({'ev_category': 'Checkout', 'ev_action': 'Add Product', 'ev_label': 'ASO01043', 'ev_property': 'blue:xxl', 'ev_svalue': '2.0', 'event': 'custom_event'});
+            dataLayer.push({
+              'ev_category': 'Checkout', 
+              'ev_action': 'Add Product', 
+              'ev_label': 'ASO01043', 
+              'ev_property': 'blue:xxl', 
+              'ev_value': '2.0', 
+              'event': 'custom_event'});
         }
 
         function addEcommerceTransaction() {
