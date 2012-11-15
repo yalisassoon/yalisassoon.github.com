@@ -61,6 +61,7 @@
           alert('Adding an ecommerce transaction');
 
           dataLayer = [{
+            'event': 'transaction',
             'transactionId': 'order-123',
             'transactionAffiliation': 'web',
             'transactionTotal': '9.99',
@@ -70,8 +71,7 @@
             'transactionProducts': [
               {'name': 'Blue_t-shirt', 'sku': '1001', 'category': 'ts', 'price': '4.99', 'quantity': '1'},
               {'name': 'Red_shoes', 'sku': '1002', 'category': 'shoes', 'price': '5.00', 'quantity': '2'}
-            ],
-            'event': 'transaction'
+            ]
           }];  
 
           alert('dataLayer should be populated now with all relevant fields');        
