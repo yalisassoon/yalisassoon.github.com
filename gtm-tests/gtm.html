@@ -18,7 +18,7 @@
   
     <!-- Example events -->
     <script type="text/javascript">
-        function playMix() {
+        function playMix1() {
             alert("Playing a DJ mix");
             dataLayer.push({
               'ev_category': 'Mixes', 
@@ -91,10 +91,10 @@
 
     <h1>Asynchronous examples for snowplow.js</h1>
     <p>Press the buttons below to trigger individual tracking events:<br>
-        <button type="button" onclick="playMix()">Play a mix</button><br>
-        <button type="button" onclick="playMix()">Play a mix 2</button><br>
-        <button type="button" onclick="playMix()">Play a mix 3</button><br>
-                <button type="button" onclick="addProduct()">Add a product</button><br>
+        <button type="button" onclick="playMix1()">Play a mix</button><br>
+        <button type="button" onclick="playMix2()">Play a mix 2</button><br>
+        <button type="button" onclick="playMix3()">Play a mix 3</button><br>
+        <button type="button" onclick="addProduct()">Add a product</button><br>
         <button type="button" onclick="addEcommerceTransaction()">Add an ecommerce transaction</button>
     </p>
 </body>
