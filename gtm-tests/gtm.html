@@ -60,56 +60,18 @@
         function addEcommerceTransaction() {
           alert('Adding an ecommerce transaction');
 
-          var orderId = 'order-123';
-
-          // addTrans sets up the transaction, should be called first.
-          _snaq.push(['addTrans',
-              orderId,                // order ID - required
-              '',                     // affiliation or store name
-              '8000',                 // total - required
-              '',                     // tax
-              '',                     // shipping
-              '',                     // city
-              '',                     // state or province
-              ''                      // country
-              ]);
-
-          // addItem might be called for each item in the shopping cart,
-          // or not at all.
-          _snaq.push(['addItem',
-              orderId,                // order ID - required
-              '1001',                 // SKU - required
-              'Blue t-shirt',         // product name
-              '',                     // category
-              '2000',                 // unit price - required
-              '2'                     // quantity - required
-              ]);
-
-          _snaq.push(['addItem',
-              orderId,                // order ID - required
-              '1002',                 // SKU - required
-              'Red shoes',            // product name
-              '',                     // category
-              '4000',                 // unit price - required
-              '1'                     // quantity - required
-              ]);
-
-          // trackTrans sends the transaction to SnowPlow tracking servers.
-          // Must be called last to commit the transaction.
-          _snaq.push(['trackTrans']);
-
           dataLayer = [{
-            transactionId: 'orderId',
-            transactionAffiliation: 'web',
-            transactionTotal: '9.99',
-            transactionShipping: '1',
-            transactionTax: '2',
-            transactionCurrency: '6',
-            transactionProducts: [
-              {name: '7', sku: '8', category: '9', price: 10, quantity: '11'},
-              {name: '12', sku: '13', category: '14', price: 15, quantity: '16'},
-              {name: '17', sku: '18', category: '19', price: 20, quantity: '21'}
-            ]
+            'transactionId': 'order-123',
+            'transactionAffiliation': 'web',
+            'transactionTotal': '9.99',
+            'transactionShipping': '1',
+            'transactionTax': '2',
+            'transactionCurrency': '6',
+            'transactionProducts': [
+              {'name': 'Blue_t-shirt', 'sku': '1001', 'category': 'ts', 'price': '4.99', 'quantity': '1'},
+              {'name': 'Red_shoes', 'sku': '1002', 'category': 'shoes', 'price': '5.00', 'quantity': '2'}
+            ],
+            'event': 'transaction'
           }];          
 
         }
