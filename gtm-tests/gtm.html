@@ -15,18 +15,7 @@
 <html>
 <head>
     <title>Google Tag Manager website/webapp examples for snowplow.js</title>
-
-    <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-B93L"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-B93L');</script>
-    <!-- End Google Tag Manager -->
-
-    
+  
     <!-- Example events -->
     <script type="text/javascript">
         function playMix() {
@@ -109,11 +98,35 @@
           // Must be called last to commit the transaction.
           _snaq.push(['trackTrans']);
 
+          dataLayer = [{
+            transactionId: 'orderId',
+            transactionAffiliation: 'web',
+            transactionTotal: '9.99',
+            transactionShipping: '1',
+            transactionTax: '2',
+            transactionCurrency: '6',
+            transactionProducts: [
+              {name: '7', sku: '8', category: '9', price: 10, quantity: '11'},
+              {name: '12', sku: '13', category: '14', price: 15, quantity: '16'},
+              {name: '17', sku: '18', category: '19', price: 20, quantity: '21'}
+            ]
+          }];          
+
         }
     </script>
 </head>
 
 <body>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-B93L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-B93L');</script>
+    <!-- End Google Tag Manager -->
+
     <h1>Asynchronous examples for snowplow.js</h1>
     <p>Press the buttons below to trigger individual tracking events:<br>
         <button type="button" onclick="playMix()">Play a mix</button><br>
