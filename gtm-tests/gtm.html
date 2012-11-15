@@ -31,7 +31,7 @@
         
         function playMix2() {
           alert("Playing a DJ mix - using custom data defined after 'playmix' event fired")
-          datalayer.push({
+          dataLayer.push({
             'event': 'playMix', 
             'mix_name': 'fabric mashup 3', 
             'mix_id': 'MRC-fabric-0503-mix'})
@@ -39,7 +39,7 @@
 
         function playMix3() {
           alert("Playing a DJ mix - using custom data defined before 'playmix' event fired")
-          datalayer.push({
+          dataLayer.push({
             'mix_name': 'fabric mashup 3', 
             'mix_id': 'MRC-fabric-0503-mix', 
             'event': 'playMix'
