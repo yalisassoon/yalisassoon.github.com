@@ -1,0 +1,44 @@
+<!-- ** SnowPlow Ecommerce tracking tag for GTM **
+This tag should be added to GTM and named something like "Ecommerce tracking"
+Assuming that the relevant data points for each transaction have been 
+successfully added to the dataLayer by the webmaster in the HTML (same code as 
+is necessary to get the GA ecommerce tracking working, then this tag should 
+successfully fire all three types of event that are necessary to successfully record a 
+transaction in SnowPlow-->
+
+<script>
+var j = 0;
+
+var shoppingBasketItems = new Array();
+
+for(i=0;i<dataLayer.length;i++){
+        if(dataLayer[i].event==='addItem'){ // Record all the 'addItem' events in shoppingBasketItems array
+            shoppingBasketItems[j] = i;  j++;        
+        }
+
+        if(dataLayer[i].event==='addTrans'){
+            _snaq.push(['addTrans',         // Fire the 'addTrans' event for each time GA records that event
+            dataLayer[i].transId,           // order ID - required
+            dataLayer[i].affiliation,       // affiliation or store name
+            dataLayer[i].total,             // total - required
+            dataLayer[i].tax,               // tax
+            dataLayer[i].shipping,          // shipping
+            dataLayer[i].city,              // city
+            dataLayer[i].state,             // state or province
+            dataLayer[i].country            // country
+          ]);
+        }
+}
+  
+for(i=0;i<shoppingBasketItems.length;i++){  // For each item bought, fire the 'addItem' event to record it in SnowPlow
+    _snaq.push(['addItem',
+    dataLayer[shoppingBasketItems[i]].transId,           // order ID - required
+    dataLayer[shoppingBasketItems[i]].sku,               // SKU/code - required
+    dataLayer[shoppingBasketItems[i]].productName,       // product name
+    dataLayer[shoppingBasketItems[i]].variation,         // category or variation
+    dataLayer[shoppingBasketItems[i]].unitPrice,         // unit price - required
+    dataLayer[shoppingBasketItems[i]].qty                // quantity - required
+  ]);
+}
+_snaq.push(['trackTrans']);​                 // Now record the completed transaction
+</script>
