@@ -36,12 +36,12 @@ _snaq.push(['addTrans',
     {{transactionShipping}},
     {{city}},
     {{state}},
-    {{country}},
+    {{country}}
 ]);
 
 
-// Now fire the 'addItem' event for each item included in the transaction
-for(i=0; i<{{transactionProducts}}.length; i++) = {
+// 2nd fire the 'addItem' event for each item included in the transaction
+for(i=0; i<{{transactionProducts}}.length; i++) {
     _snaq.push(['addItem',
         {{transactionId}},
         {{transactionProducts}}[i].sku,
