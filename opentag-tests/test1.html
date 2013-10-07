@@ -33,65 +33,55 @@
         function playMix() {
             alert("Structured event: Playing a DJ mix");
             universal_variable.events.push({
-            	"type": 'struct', 
-            	"category": 'Mixes',
-            	"action": 'Play',
-            	"label": 'MRC/fabric-0503-mix',
-            	"property": '',
-            	"value": '0.0'
+            	"type": "struct", 
+            	"category": "Mixes",
+            	"action": "Play",
+            	"label": "MRC/fabric-0503-mix",
+            	"property": "",
+            	"value": "0.0"
         	});
 
         }
         function addProduct() {
             alert("Structured event: Add a product to basket");
-            _snaq.push(['trackEvent', 'Checkout', 'Add', 'ASO01043', 'blue:xxl', '2.0']);      
+            _snaq.push(["trackEvent", "Checkout", "Add", "ASO01043", "blue:xxl", "2.0"]);      
             universal_variable.events.push({
-            	"type": 'struct', 
-            	"category": 'Ecomm',
-            	"action": 'Add-item-to-basket',
-            	"label": 'ASO01043',
-            	"property": 'blue:xxl',
-            	"value": '2.0'
+            	"type": "struct", 
+            	"category": "Ecomm",
+            	"action": "Add-item-to-basket",
+            	"label": "ASO01043",
+            	"property": "blue:xxl",
+            	"value": "2.0"
         	});           
         }
 
-        function addEcommerceTransaction() {
-          	alert('Unstructured event: adding an ecommerce transaction');
+        function inGameEvent() {
+          	alert("Unstructured event: in-game event (player 1 shoots player 2");
             universal_variable.events.push({
-            	"type": 'unstruct', 
-            	"category": 'Ecomm',
-            	"transaction": {
-            		"order_id": "123",
-            		"currency": "GBP",
-            		"subtotal": "19.99",
-            		"shipping_cost": "4.00",
-            		"total": "23.99",
-            		"delivery": {
-            			"name": "Mrs Holsden",
-            			"address": "234 High Street",
-            			"city": "London",
-            			"postcode": "SW1 1AB",
-            			"country": "GB"
-            		},
-            		"line_items": [{
-            			"product": {
-            				"name": "ABC Trainers",
-            				"unit_price": "19.99",
-            				"currency": "GBP"
-            			},
-            			"quantity": 1
-            		}]
-            	}
+            	"type": "unstruct", 
+            	"category": "Ecomm",
+            	"name": "player-vs-player-shoot",
+            	"properties": {
+            		"player_shooter_id": "00139",
+            		"player_shot_id": "01984",
+            		"ts": 1381168087,
+            		"player_level": 5
+            	}}
         	});           
         }
     </script>
 </head>
 <body>
-    <h1>OpenTag test</h1>
+    <h1>OpenTag test</h1> 
+	<p>We"re assuming:
+	    <ol>
+	    	<li>Page view events are sent to Snowplow automatically</li>
+	    </ol>
+	</p>
     <p>Press the buttons below to trigger individual tracking events:<br>
-        <button type="button" onclick="playMix()">Play a mix</button><br>
-        <button type="button" onclick="addProduct()">Add a product</button><br>
-        <button type="button" onclick="addEcommerceTransaction()">Add an ecommerce transaction</button>
+        <button type="button" onclick="playMix()">Structured Event: Play a mix</button><br>
+        <button type="button" onclick="addProduct()">Structured Event: Add a product</button><br>
+        <button type="button" onclick="inGameEvent()">Unstructured event: In-game event</button>
     </p>
     <p>Back to <a href="/">home</a>
 </body>
