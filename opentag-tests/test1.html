@@ -1,0 +1,99 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<!-- 
+ ! Copyright (c) 2013 SnowPlow Analytics Ltd. All rights reserved.
+ !
+ ! This program is licensed to you under the Apache License Version 2.0,
+ ! and you may not use this file except in compliance with the Apache License Version 2.0.
+ ! You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
+ !
+ ! Unless required by applicable law or agreed to in writing,
+ ! software distributed under the Apache License Version 2.0 is distributed on an
+ ! "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
+ -->
+<html>
+<head>
+	<title>OpenTag testing</title>
+
+	<!-- SETUP THE UNIVERAL VARIABLE -->
+	<script type="text/javascript">
+		window.universal_variable = {
+			"version": "1.1.1",
+			"page": {
+				"category": "test"
+			}
+
+		}
+	</script>
+	<!-- CONTAINER TAG -->
+
+	<!-- CODE TO FIRE ON BUTTON PRESS -->
+    <script type="text/javascript">
+        function playMix() {
+            alert("Structured event: Playing a DJ mix");
+            universal_variable.events.push({
+            	"type": 'struct', 
+            	"category": 'Mixes',
+            	"action": 'Play',
+            	"label": 'MRC/fabric-0503-mix',
+            	"property": '',
+            	"value": '0.0'
+        	});
+
+        }
+        function addProduct() {
+            alert("Structured event: Add a product to basket");
+            _snaq.push(['trackEvent', 'Checkout', 'Add', 'ASO01043', 'blue:xxl', '2.0']);      
+            universal_variable.events.push({
+            	"type": 'struct', 
+            	"category": 'Ecomm',
+            	"action": 'Add-item-to-basket',
+            	"label": 'ASO01043',
+            	"property": 'blue:xxl',
+            	"value": '2.0'
+        	});           
+        }
+
+        function addEcommerceTransaction() {
+          	alert('Unstructured event: adding an ecommerce transaction');
+            universal_variable.events.push({
+            	"type": 'unstruct', 
+            	"category": 'Ecomm',
+            	"transaction": {
+            		"order_id": "123",
+            		"currency": "GBP",
+            		"subtotal": "19.99",
+            		"shipping_cost": "4.00",
+            		"total": "23.99",
+            		"delivery": {
+            			"name": "Mrs Holsden",
+            			"address": "234 High Street",
+            			"city": "London",
+            			"postcode": "SW1 1AB",
+            			"country": "GB"
+            		},
+            		"line_items": [{
+            			"product": {
+            				"name": "ABC Trainers",
+            				"unit_price": "19.99",
+            				"currency": "GBP"
+            			},
+            			"quantity": 1
+            		}]
+            	}
+        	});           
+        }
+    </script>
+</head>
+<body>
+    <h1>OpenTag test</h1>
+    <p>Press the buttons below to trigger individual tracking events:<br>
+        <button type="button" onclick="playMix()">Play a mix</button><br>
+        <button type="button" onclick="addProduct()">Add a product</button><br>
+        <button type="button" onclick="addEcommerceTransaction()">Add an ecommerce transaction</button>
+    </p>
+    <p>Back to <a href="/">home</a>
+</body>
+
+</html>
