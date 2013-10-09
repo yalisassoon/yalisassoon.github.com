@@ -1,0 +1,58 @@
+<!-- ** SnowPlow Ecommerce tracking tag for Google Tag Manager**
+
+    In order to work, the assumption is that the transaction information required has been pushed to the data layer using the following type of Javascript:
+
+          dataLayer = [{
+            'transactionId': 'order-123',
+            'transactionAffiliation': 'web',
+            'transactionTotal': '9.99',
+            'transactionShipping': '1',
+            'transactionTax': '2',
+            'transactionCurrency': '6',
+            'transactionProducts': [
+              {'name': 'Blue_t-shirt', 'sku': '1001', 'category': 'ts', 'price': '4.99', 'quantity': '1'},
+              {'name': 'Red_shoes', 'sku': '1002', 'category': 'shoes', 'price': '5.00', 'quantity': '2'}
+            ],
+            'event': 'transaction'
+          }];  
+
+    Note that this is the same structure of data that needs to be pushed to the dataLayer in order to 
+    enable GA Ecommerce Tracking.
+
+    This tag should be added to GTM and named something like "SnowPlow Ecommerce Tracking".
+
+    In GTM, the tag is triggered by the rule "event equals": "transaction", setup in GTM. (If a 
+    different event name is used as a trigger, then the 'event' field in the above code needs to be 
+    updated with the alternative name.)
+-->
+
+<script type="text/javascript">
+// 1st, fire 'addTrans' event for the new transaction
+_snaq.push(['addTrans',
+    {{transactionId}},
+    {{transactionAffiliation}},
+    {{transactionTotal}},
+    {{transactionTax}},
+    {{transactionShipping}},
+    {{city}},
+    {{state}},
+    {{country}}
+]);
+
+
+// 2nd fire the 'addItem' event for each item included in the transaction
+for(i=0; i<{{transactionProducts}}.length; i++) {
+    _snaq.push(['addItem',
+        {{transactionId}},
+        {{transactionProducts}}[i].sku,
+        {{transactionProducts}}[i].name,
+        {{transactionProducts}}[i].category,
+        {{transactionProducts}}[i].price,
+        {{transactionProducts}}[i].quantity
+    ]);
+}
+
+// Finally fire the 'trackTrans' event to commit the transaction
+_snaq.push['trackTrans']
+</script>
+<!-- end of SnowPlow Ecommerce tracking tag for Google Tag Manager -->

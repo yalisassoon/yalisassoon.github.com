@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<!-- 
+ ! Copyright (c) 2012 SnowPlow Analytics Ltd. All rights reserved.
+ !
+ ! This program is licensed to you under the Apache License Version 2.0,
+ ! and you may not use this file except in compliance with the Apache License Version 2.0.
+ ! You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
+ !
+ ! Unless required by applicable law or agreed to in writing,
+ ! software distributed under the Apache License Version 2.0 is distributed on an
+ ! "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
+ -->
+<html>
+<head>
+    <title>Google Tag Manager website/webapp examples for snowplow.js</title>
+  
+    <!-- Example events -->
+    <script type="text/javascript">
+        function playMix1() {
+            alert("Playing a DJ mix");
+            dataLayer.push({
+              'ev_category': 'Mixes', 
+              'ev_action': 'playMix', 
+              'ev_label': 'fabric-mashup-3', 
+              'ev_propery':'MRC-fabric-0503-mix', 
+              'ev_value':'0.0', 
+              'event': 'custom_event'});
+        }
+        
+        function playMix2() {
+          alert("Playing a DJ mix - using custom data defined after 'playmix' event fired")
+          dataLayer.push({
+            'event': 'playMix', 
+            'mix_name': 'fabric mashup 3', 
+            'mix_id': 'MRC-fabric-0503-mix'})
+        }
+
+        function playMix3() {
+          alert("Playing a DJ mix - using custom data defined before 'playmix' event fired")
+          dataLayer.push({
+            'mix_name': 'fabric mashup 3', 
+            'mix_id': 'MRC-fabric-0503-mix', 
+            'event': 'playMix'
+          })
+        }
+        
+        function addProduct() {
+            alert("Adding a product to basket");
+            dataLayer.push({
+              'ev_category': 'Checkout', 
+              'ev_action': 'Add Product', 
+              'ev_label': 'ASO01043', 
+              'ev_property': 'blue:xxl', 
+              'ev_value': '2.0', 
+              'event': 'custom_event'});
+        }
+
+        function addEcommerceTransaction() {
+          alert('Adding an ecommerce transaction');
+
+          dataLayer = [{
+            'event': 'transaction',
+            'transactionId': 'order-123',
+            'transactionAffiliation': 'web',
+            'transactionTotal': '9.99',
+            'transactionShipping': '1',
+            'transactionTax': '2',
+            'transactionCurrency': '6',
+            'transactionProducts': [
+              {'name': 'Blue_t-shirt', 'sku': '1001', 'category': 'ts', 'price': '4.99', 'quantity': '1'},
+              {'name': 'Red_shoes', 'sku': '1002', 'category': 'shoes', 'price': '5.00', 'quantity': '2'}
+            ]
+          }];  
+
+          alert('dataLayer should be populated now with all relevant fields');        
+
+        }
+    </script>
+</head>
+
+<body>
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-B93L"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-B93L');</script>
+    <!-- End Google Tag Manager -->
+
+    <h1>Asynchronous examples for snowplow.js</h1>
+    <p>Press the buttons below to trigger individual tracking events:<br>
+        <button type="button" onclick="playMix1()">Play a mix</button><br>
+        <button type="button" onclick="playMix2()">Play a mix 2</button><br>
+        <button type="button" onclick="playMix3()">Play a mix 3</button><br>
+        <button type="button" onclick="addProduct()">Add a product</button><br>
+        <button type="button" onclick="addEcommerceTransaction()">Add an ecommerce transaction</button>
+    </p>
+    <p>Back to <a href="/">home</a>
+</body>
+
+</html>
