@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<!-- 
+ ! Copyright (c) 2012-2013 Snowplow Analytics Ltd. All rights reserved.
+ !
+ ! This program is licensed to you under the Apache License Version 2.0,
+ ! and you may not use this file except in compliance with the Apache License Version 2.0.
+ ! You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
+ !
+ ! Unless required by applicable law or agreed to in writing,
+ ! software distributed under the Apache License Version 2.0 is distributed on an
+ ! "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ! See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
+ -->
+<html>
+<head>
+    <title>Asynchronous website/webapp examples for snowplow.js</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+    <!-- Snowplow starts plowing -->
+    <script type="text/javascript">   
+        window._snaq = window._snaq || [];
+
+        window._snaq.push(['setCollectorUrl', 'sp-collector-ad-imps.elasticbeanstalk.com']); // Update to your collector endpoint
+        window._snaq.push(['setAppId', 'test']); // Site ID can be anything you want. Set it if you're tracking more than one site in this account
+        window._snaq.push(['setUserId', 'test_user']); // Business-defined user ID
+        //window._snaq.push(['setUserIdFromLocation', 'id']); // To test this, reload the page with ?id=xxx
+        //window._snaq.push(['setUserIdFromCookie', '_sp_id.4209']) // Test this using Firefox because Chrome doesn't allow local cookies.
+        window._snaq.push(['enableActivityTracking', 10, 10]); // Ping every 10 seconds after 10 seconds
+        window._snaq.push(['enableLinkTracking']);
+        window._snaq.push(['setPlatform', 'mob']);
+        window._snaq.push(['encodeBase64', false]); // Default is true
+        //window._snaq.push(['enableUserFingerprint', false]); // Turn off user fingerprinting
+        //window._snaq.push(['setUserFingerprintSeed', 987654321]); // Set user fingerprint hash seed
+        window._snaq.push(['respectDoNotTrack', true]); // Prevent all tracking if browser's Do Not Track feature is enabled
+        // window._snaq.push(['trackPageView', 'Async Test']); // Track the page view with custom title
+        window._snaq.push(['trackPageView', , { // Auto-set page title; add page context
+          page: {
+            page_type: 'test',
+            last_updated: new Date(2014,1,26)
+          },
+          user: {
+            user_type: 'tester',
+
+          }
+        } ]);
+
+        (function() {
+            var sp = document.createElement('script'); sp.type = 'text/javascript'; sp.async = true; sp.defer = true;
+            //sp.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://d1fc8wv8zag5ca.cloudfront.net/0.13.0/sp.js';
+            sp.src = '../../dist/snowplow.js'; // For testing
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sp, s);
+            })();
+    </script>
+    <!-- Snowplow stops plowing -->
+
+    <!-- Example events -->
+    <script type="text/javascript">
+
+        function playMix() {
+            alert("Playing a DJ mix");
+            window._snaq.push(['trackStructEvent', 'Mixes', 'Play', 'MRC/fabric-0503-mix', '', '0.0']);
+        }
+        function addProduct() {
+            alert("Adding a product to basket");
+            window._snaq.push(['trackStructEvent', 'Checkout', 'Add', 'ASO01043', 'blue:xxl', '2.0', { user: { fb_uid: '123456 x' } } ]);      
+        }
+        function viewProduct() {
+            alert("Viewing a product");
+            window._snaq.push(['trackUnstructEvent', 'Viewed Product',
+                {
+                    product_id: 'ASO01043',
+                    category: 'Dresses',
+                    brand: 'ACME',
+                    returning: true,
+                    price: 49.95,
+                    sizes: ['xs', 's', 'l', 'xl', 'xxl'],
+                    available_since$dt: new Date(2013,3,7)
+                }
+            ]);
+        }
+
+        function addEcommerceTransaction() {
+          alert('Adding an ecommerce transaction');
+
+          var orderId = 'order-123';
+
+          // addTrans sets up the transaction, should be called first.
+          window._snaq.push(['addTrans',
+              orderId,                // order ID - required
+              '',                     // affiliation or store name
+              '8000',                 // total - required
+              '',                     // tax
+              '',                     // shipping
+              '',                     // city
+              '',                     // state or province
+              '',                     // country
+              'JPY'                   // currency
+              ]);
+
+          // addItem might be called for each item in the shopping cart,
+          // or not at all.
+          window._snaq.push(['addItem',
+              orderId,                // order ID - required
+              '1001',                 // SKU - required
+              'Blue t-shirt',         // product name
+              '',                     // category
+              '2000',                 // unit price - required
+              '2',                    // quantity - required
+              'JPY',                  // currency
+              { products: { "launch_date$tm": new Date(2013,3,7) } } // context
+              ]);
+
+          window._snaq.push(['addItem',
+              orderId,                // order ID - required
+              '1002',                 // SKU - required
+              'Red shoes',            // product name
+              '',                     // category
+              '4000',                 // unit price - required
+              '1',                    // quantity - required
+              'JPY'                   // currency
+              ]);
+
+          // trackTrans sends the transaction to Snowplow tracking servers.
+          // Must be called last to commit the transaction.
+          window._snaq.push(['trackTrans']);
+
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Asynchronous_examples_for_snowplow.js</h1>
+    <p>Press the buttons below to trigger individual tracking events:<br>
+        <button type="button" onclick="playMix()">Play a mix</button><br>
+        <button type="button" onclick="addProduct()">Add a product</button><br>
+        <button type="button" onclick="viewProduct()">View a product</button><br>
+        <button type="button" onclick="addEcommerceTransaction()">Add an ecommerce transaction</button>
+    </p>
+    <p>Warning: if your browser's Do Not Track feature is enabled and respectDoNotTrack is not commented out, all tracking will be prevented.</p>
+</body>
+
+</html>
